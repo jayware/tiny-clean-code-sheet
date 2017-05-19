@@ -1,4 +1,4 @@
-\documentclass[a5paper, landscape]{article}
+\documentclass[a5paper, landscape,11pt]{article}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
@@ -11,6 +11,8 @@
 
 \usetikzlibrary{shapes,snakes}
 
+\renewcommand*\rmdefault{phv}
+
 \tikzstyle{degreeBox} = [very thick, rectangle, rounded corners, inner sep=10pt, inner ysep=20pt]
 
 \definecolor{redDegree}{rgb}{1.0, 0.1, 0.1}
@@ -19,19 +21,24 @@
 \definecolor{greenDegree}{rgb}{0.0, 0.7, 0.1}
 \definecolor{blueDegree}{rgb}{0.1, 0.1, 0.9}
 \definecolor{whiteDegree}{rgb}{1.0, 1.0, 1.0}
-\definecolor{subsection}{rgb}{0.7,0.7,0.7}
-\definecolor{pagecolor}{rgb}{0.4,0.4,0.4}
-\definecolor{textcolor}{rgb}{0.9,0.9,0.9}
+\definecolor{subsection}{rgb}{0,0,0}
+\definecolor{pagecolor}{rgb}{1,1,1}
+\definecolor{textcolor}{rgb}{0.2,0.2,0.2}
+\definecolor{textcolor2}{rgb}{1,1,1}
 \definecolor{shadowColor}{rgb}{0.3,0.3,0.3}
 
 \titlespacing*{\subsection}{0pt}{0mm}{0mm}
-\titleformat{\subsection}{\color{subsection}\fontfamily{phv}\fontsize{13}{17}\bfseries}{\thesubsection}{1em}{}
+%\titleformat{\subsection}{\color{subsection}\fontfamily{phv}\fontsize{20}{17}\bfseries}{\thesubsection}{1em}{} % Title (Prinzipien + Praktiken)
 \titlespacing*{\subsubsection}{0pt}{0mm}{0mm}
 
 \pagecolor{pagecolor}
 
+\clearpage
+
 \DeclareDocumentCommand \degreesection { m m o } {
 	\begin{tikzpicture}[remember picture, overlay]
+		\node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{Bild1.jpg}}; % Hintergrund auf jeder Seite
+
 		\node [shift={(-5 cm,-5cm)}]  at (current page.north east)
 		{
 			\begin{tikzpicture}[remember picture, overlay]
@@ -43,13 +50,46 @@
 			\end{tikzpicture}
 		};
 	\end{tikzpicture}
-	\titleformat{\subsubsection}{\color{#2}\fontfamily{phv}\fontsize{11}{15}\bfseries}{\thesubsubsection}{1em}{}
+	\titleformat{\subsection}{\color{#2}\fontfamily{phv}\fontsize{18}{15}\bfseries}{\thesubsection}{1em}{} % Title (Prinzipien + Praktiken
+	\titleformat{\subsubsection}{\fontfamily{phv}\fontsize{11}{15}\bfseries}{\thesubsubsection}{1em}{} % Einzelne Überschriften (DRY, KISS....)
 }
 
+\DeclareDocumentCommand \degreesectionTwo { m m o } {
+	\begin{tikzpicture}[remember picture, overlay]
+		
+		\node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{Bild1.jpg}};
+		\node [shift={(-5 cm,-5cm)}]  at (current page.north east)
+		{
+			\begin{tikzpicture}[remember picture, overlay]
+			\draw [draw=pagecolor, fill=#2] (0, 5) -- (1.25, 5) -- (5, 1.25) -- (5, 0) -- cycle ;
+			\draw [draw=shadowColor, fill=shadowColor] (0, 4.9) -- (0.1, 4.9) -- (4.9, 0.1) -- (4.9, 0) -- cycle ;
+			\node[shift={(2.8cm,2.8cm)}, rotate=-45] {
+				\huge \fontfamily{phv} \color{\IfNoValueTF{#3}{textcolor2}{#3}} \textbf{#1}
+			};
+			\end{tikzpicture}
+		};
+	\end{tikzpicture}
+	\titleformat{\subsubsection}{\color{#2}\fontfamily{phv}\fontsize{11}{15}\bfseries}{\thesubsubsection}{1em}{}
+}
 \begin{document}
 	\pagenumbering{gobble}
 	\footnotesize
 	\color{textcolor}
+
+	\begin{titlepage}
+		\begin{tikzpicture}[remember picture, overlay]
+		\node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{Bild1.jpg}};
+		\end{tikzpicture}
+		\centering\Huge Clean Code Cheat Sheet
+		\newline
+		\centering\Large Daimler TSS
+	\end{titlepage}
+	
+	\newpage
+	\begin{tikzpicture}[remember picture, overlay]
+		\node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{Bild1.jpg}};
+	\end{tikzpicture}
+	\newpage
 	\degreesection{Roter Grad}{redDegree}
 	\begin{minipage}[t]{.5\textwidth}
 		\subsection*{Prinzipien}
@@ -80,6 +120,12 @@
 	\end{minipage}
 
 	\newpage
+	\begin{tikzpicture}[remember picture, overlay]
+		\node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{Bild1.jpg}};
+	\end{tikzpicture}
+
+
+	\newpage
 	\degreesection{Oranger Grad}{orangeDegree}
 	\begin{minipage}[t]{.5\textwidth}
 		\subsection*{Prinzipien}
@@ -102,7 +148,13 @@
 		\subsubsection*{Lesen, Lesen, Lesen}
 		Lesen bildet!
 	\end{minipage}
+
+	\newpage
+	\begin{tikzpicture}[remember picture, overlay]
+		\node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{Bild1.jpg}};
+	\end{tikzpicture}
 	
+
 	\newpage
 	\degreesection{Gelber Grad}{yellowDegree}
 	\begin{minipage}[t]{.5\textwidth}
@@ -132,7 +184,13 @@
 		\subsubsection*{Komplexe Refaktorisierungen}
 		Es ist nicht möglich, Code direkt in der ultimativen Form zu schreiben.
 	\end{minipage}
+
+	\newpage
+	\begin{tikzpicture}[remember picture, overlay]
+		\node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{Bild1.jpg}};
+	\end{tikzpicture}
 		
+
 	\newpage
 	\degreesection{Grüner Grad}{greenDegree}
 	\begin{minipage}[t]{.5\textwidth}
@@ -160,7 +218,13 @@
 	\end{minipage}
 
 	\newpage
-	\degreesection{Blauer Grad}{blueDegree}
+	\begin{tikzpicture}[remember picture, overlay]
+		\node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{Bild1.jpg}};
+	\end{tikzpicture}
+
+
+	\newpage
+	\degreesectionTwo{Blauer Grad}{blueDegree}
 	\begin{minipage}[t]{.5\textwidth}
 		\subsection*{Prinzipien}
 		\subsubsection*{Entwurf und Implementation überlappen nicht}
@@ -182,9 +246,22 @@
 		\subsubsection*{Test first}
 		Der Kunde ist König und bestimmt die Form einer Dienstleistung. Service-Implementationen sind also nur passgenau, wenn sie durch einen Client getrieben werden.
 	\end{minipage}
+
+	\newpage
+	\begin{tikzpicture}[remember picture, overlay]
+		\node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{Bild1.jpg}};
+	\end{tikzpicture}
+
+
 	\newpage
 	\degreesection{Weißer Grad}{whiteDegree}[black]
-	\noindent Mit dem weißen Grad schließt sich der Kreis. Er vereinigt alle Prinzipien und Praktiken der farbigen Grade. Sein Horizont sind alle Bausteine zusammen. Wer den weißen Grad erreicht hat, arbeitet ständig an allen Facetten des Wertesystems. Da solche gleichschwebende Aufmerksamkeit jedoch schwer herzustellen ist, erwarten wir, dass der Clean Code Developer nach einiger Zeit wieder mit der Arbeit im Gradesystem von vorne beginnt.
+	\subsubsection*{} Mit dem weißen Grad schließt sich der Kreis. Er vereinigt alle Prinzipien und Praktiken der farbigen Grade. Sein Horizont sind alle Bausteine zusammen. Wer den weißen Grad erreicht hat, arbeitet ständig an allen Facetten des Wertesystems. Da solche gleichschwebende Aufmerksamkeit jedoch schwer herzustellen ist, erwarten wir, dass der Clean Code Developer nach einiger Zeit wieder mit der Arbeit im Gradesystem von vorne beginnt.
+
+	\newpage
+	\begin{tikzpicture}[remember picture, overlay]
+		\node[opacity=0.3,inner sep=0pt] at (current page.center){\includegraphics[width=\paperwidth,height=\paperheight]{Bild1.jpg}};
+	\end{tikzpicture}
+
 \end{document}
 
 
